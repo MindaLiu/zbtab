@@ -1,28 +1,41 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <div>
+      <h1 class="title">TodoList</h1>
+      <input type="text" placeholder="todo" v-model="todoItem" v-on:keyup.enter="addTodo">
+      <TodoList v-bind:todoList="todoList" @remove="removeTodo"/>
+    </div>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+// import TodoInput from './components/TodoInput.vue'
+import TodoList from "./components/TodoList.vue";
 
 export default {
-  name: 'app',
+  name: "app",
+  data: function() {
+    return {
+      todoItem: "",
+      todoList: []
+    };
+  },
+  methods: {
+    addTodo: function(params) {
+      this.todoList.push(this.todoItem);
+      this.todoItem = "";
+    },
+    removeTodo: function(todo) {
+      var pos = this.todoList.indexOf(todo);
+      this.todoList.splice(pos, 1);
+    }
+  },
   components: {
-    HelloWorld
+    // TodoInput,
+    TodoList
   }
-}
+};
 </script>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
 </style>
