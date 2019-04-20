@@ -1,12 +1,12 @@
 <template>
-  <div >
-    <ul>
-      <li v-for="todo in todoList">
-        {{todo}}
-        <button @click="$emit('remove',todo)">X</button>
-      </li>
-    </ul>
+<div>
+  <div class="control">
+    <div class="box is-marginless" v-for="todo in todoList">
+      <span>{{todo}}</span>
+      <button class="delete is-medium is-pulled-right" @click="$emit('remove',todo)"></button>
+    </div>
   </div>
+</div>
 </template>
 
 <script>
@@ -14,9 +14,7 @@ export default {
   name: "TodoList",
   props: ["todoList"],
   data: function() {
-    return {
-
-    };
+    return {};
   },
   methods: {}
 };
