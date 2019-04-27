@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import routes from './routes'
 
+import './../node_modules/@fortawesome/fontawesome-free/js/all.js';
 import './../node_modules/bulma/css/bulma.css';
 
 Vue.config.productionTip = false
