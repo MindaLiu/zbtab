@@ -1,28 +1,61 @@
 <template>
-    <div>
-        <staffinfoForm v-bind:staff="s1"></staffinfoForm>
-    </div>
+  <div>
+    <!-- 标题栏 -->
+    <navbar :currentPage="currentPage"></navbar>
+    <!-- 筛选框 -->
+
+
+    <!-- 人员列表 -->
+
+
+    <!-- 表单 -->
+    <modal :class="{'is-active':isActive}" @closeModal="closeModal">
+        <staffinfo-form @submit="putStaff"></staffinfo-form>
+    </modal>
+    <button 
+    class="button"
+    @click="openModal"
+    >add</button>
+    
+  </div>
 </template>
 
 <script>
-import navbar from '../components/Navbar'
-import staffinfoForm from '../components/StaffinfoForm'
+import navbar from "../components/Navbar";
+import modal from "../components/Modal";
+import staffinfoForm from "../components/StaffinfoForm";
+import idb from '../idb'
 
 export default {
-    data () {
-        return {
-            s1: {
-                name: 'test'
-            }
-        }
+  data() {
+    return {
+      isActive: false,
+      currentPage: {
+          title: '人员管理',
+          goto: '/'
+      }
+      }
+  },
+  methods:{
+    openModal: function (){
+        this.isActive = true;
     },
-    components: {
-        navbar,
-        staffinfoForm
+    closeModal: function () {
+        this.isActive =false;
+    },
+    putStaff: function (staff) {
+        // console.log(staff);
+        idb.putStaff(staff);
+        this.closeModal();
     }
-}
+  },
+  components: {
+    navbar,
+    modal,
+    staffinfoForm
+  }
+};
 </script>
 
 <style>
-
 </style>

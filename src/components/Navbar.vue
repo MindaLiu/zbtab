@@ -1,27 +1,32 @@
 <template>
-  <nav>
-    //logo
-    <div class="log">
-      <img>
+  <section class="hero is-dark is-bold">
+    <div class="hero-body">
+      <div class="level">
+        <!-- 标题，随页面变化 -->
+        <div class="level-left">
+          <div class="level-item">
+            <h1 class="title">技术保障部值班表</h1>
+            <h2 class="subtitle">{{currentPage.title}}</h2>
+          </div>
+        </div>
+        <!-- 切换展示与管理页面的按钮 -->
+        <div class="level-right">
+          <div class="level-item">
+            <a class="button" :href="currentPage.goto">
+              <span class="icon is-medium">
+                <i class="fab fa-github"></i>
+              </span>
+            </a>
+          </div>
+        </div>
+      </div>
     </div>
-    //标题，随页面变化
-    <h1 class>{{pageTitle}}</h1>
-    //切换展示与管理页面的按钮
-    <button class="button is-pulled-right">
-      <span class="icon">
-        <i class="fas fa-home"></i>
-      </span>
-    </button>
-  </nav>
+  </section>
 </template>
 
 <script>
-import routes from '../routes'
-
 export default {
-    props: {
-
-    },
+  props: ["currentPage"]
 };
 </script>
 
