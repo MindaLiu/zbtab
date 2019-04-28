@@ -3,7 +3,7 @@
     <!-- 标题栏 -->
     <navbar :currentPage="currentPage"></navbar>
     <!-- 筛选框 -->
-
+    <filtered-list></filtered-list>
 
     <!-- 人员列表 -->
 
@@ -22,6 +22,7 @@
 
 <script>
 import navbar from "../components/Navbar";
+import filteredList from "../components/FilteredList";
 import modal from "../components/Modal";
 import staffinfoForm from "../components/StaffinfoForm";
 import idb from '../idb'
@@ -51,6 +52,7 @@ export default {
   },
   components: {
     navbar,
+    filteredList,
     modal,
     staffinfoForm
   }

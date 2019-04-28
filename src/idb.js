@@ -24,19 +24,21 @@ const staffTable = idb.use('staffTable');
 
 export default {
     //增加/更新一个员工
-    putStaff(obj) {
-        staffTable.put(obj);
+    async putStaff(obj) {
+        let result = staffTable.put(obj);
+        return result;
     },
     //获取所有员工
     getAllStaff() {
         
     },
-    //获取符合条件的员工
-    getStaff(key, value) {
-
+    //获取符合条件的所有员工
+    async getStaff(key,value) {
+        let p = await staffTable.query(key,value);
+        return p;
     },
-    //删除
-    deleteStaff() {
-
+    //通过 id 删除某员工
+    deleteStaff(id) {
+        staffTable.delete(id);
     }
 }
