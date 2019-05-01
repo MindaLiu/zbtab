@@ -2,13 +2,15 @@
   <div class="box">
     <div class="box">
       <button
-        class="button"
-        @click="changeFilter(filter)"
+        class="button is-light"
+        @click="selectedFilter = filter.key"
         v-bind:key="filter.key"
         v-for="filter in filters"
       >{{filter.title}}</button>
     </div>
-    <staff-list :staffList="staffList"></staff-list>
+    <staff-list :staffList="staffList">
+      <slot></slot>
+    </staff-list>
   </div>
 </template>
 
@@ -44,16 +46,21 @@ export default {
           key: "dl"
         }
       ],
-      selectedFilter: {
-        key: "dept",
-        value: "zd"
-      },
+      selectedFilter: "zd",
       staffList: []
     };
   },
+  watch: {
+    selectedFilter (filter) {
+      this.refreshList(filter);
+    }
+  },
+  created: function () {
+    this.refreshList(this.selectedFilter);
+  },
   methods: {
-    changeFilter(filter) {
-      let p = idb.getStaff('dept', filter.key);
+    refreshList: function (filter){
+      let p = idb.getStaff('dept', filter);
       p.then(value => this.staffList = value).then(console.log(this.staffList));
     }
   },

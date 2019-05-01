@@ -72,7 +72,10 @@
   <div class="field-body">
     <div class="field">
       <div class="control">
-        <button class="button is-primary" @click="$emit('submit',staff)">
+        <!-- <button class="button is-primary" @click="$emit('submit',staff)">
+          提交
+        </button> -->
+        <button class="button is-primary" @click="submit()">
           提交
         </button>
       </div>
@@ -95,8 +98,9 @@ export default {
     };
   },
   methods: {
-      test(){
-          
+      submit(){
+          this.staff = Object.assign({},this.$options.data().staff )
+          console.log(this.staff);
       }
   },
   components: {}

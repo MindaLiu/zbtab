@@ -3,19 +3,19 @@
     <!-- 标题栏 -->
     <navbar :currentPage="currentPage"></navbar>
     <!-- 筛选框 -->
-    <filtered-list></filtered-list>
-
     <!-- 人员列表 -->
-
-
+    <filtered-list>
+      <button 
+    class="button"
+    @click="openModal"
+    >add</button>
+    </filtered-list>
+    
     <!-- 表单 -->
     <modal :class="{'is-active':isActive}" @closeModal="closeModal">
         <staffinfo-form @submit="putStaff"></staffinfo-form>
     </modal>
-    <button 
-    class="button"
-    @click="openModal"
-    >add</button>
+    
     
   </div>
 </template>
