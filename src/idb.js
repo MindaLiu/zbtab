@@ -28,6 +28,7 @@ const idb = new HelloIndexedDB({
         {
             name: 'staffTable',
             keyPath: 'id',
+            autoIncrement: true,
             indexes: [
                 departmentIndex,
                 inDYBIndex,
@@ -37,6 +38,7 @@ const idb = new HelloIndexedDB({
         {
             name: 'zbTable',
             keyPath: 'id',
+            autoIncrement: true,
             indexes: [
                 departmentIndex,
                 onDYBIndex,

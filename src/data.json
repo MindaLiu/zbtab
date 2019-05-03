@@ -1,0 +1,34 @@
+{
+    "departments": [
+        {
+            "title": "部领导",
+            "key": "jb",
+            "active": false
+          },
+          {
+            "title": "终端室",
+            "key": "zd",
+            "active": false
+          },
+          {
+            "title": "导航室",
+            "key": "dh",
+            "active": false
+          },
+          {
+            "title": "枢纽室",
+            "key": "sn",
+            "active": false
+          },
+          {
+            "title": "雷达室",
+            "key": "ld",
+            "active": false
+          },
+          {
+            "title": "动力室",
+            "key": "dl",
+            "active": false
+          }
+    ]  
+}
