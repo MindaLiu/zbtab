@@ -128,9 +128,10 @@ export default {
      return this.staffInfo;
     }
   },
-  props: {
-    staffInfo: Object,
-  },
+  props:['staffInfo'],
+  // props: {
+  //   staffInfo: Object,
+  // },
   methods: {
     fileCheck() {},
     preview(event) {

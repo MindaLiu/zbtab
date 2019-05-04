@@ -3,7 +3,7 @@
     <navbar :page="page"></navbar>
     <stafflib
       :depts="depts"
-      :staff="staff"    
+      :staff="staff"
       @refreshStaffLib="refreshStaffLib"
       @openStaffInfo="switchModal"
       @deleteStaff="deleteStaff"
@@ -54,33 +54,34 @@ export default {
     refreshStaffLib(dept) {
       this.selectedDept = dept;
       let p = idb.getStaff("inDept", dept);
-      p.then(value => (this.staff = value)).then(() => console.log(this.staff));
+      p.then(value => (this.staff = value));
     },
     updateStaff(staffInfo) {
-      idb.updateStaff(staffInfo);
       // this.refreshStaffLib();
-      console.log(this.sIndex);
-      if(this.sIndex == -1){
+      // console.log(this.sIndex);
+      if (this.sIndex == -1 && staffInfo.depts == this.selectedDept) {
         this.staff.push(staffInfo);
-      }else{
-        this.staff[this.Index] = staffInfo;
+      } else {
+        // this.staff[this.sIndex] = staffInfo;
+        //下标对数组负责时 vue不更新
+        this.$set(this.staff, this.sIndex, staffInfo);
       }
+      idb.updateStaff(staffInfo);
       this.switchModal();
     },
-    deleteStaff(key, index) {
-      idb.deleteStaff(key);
+    deleteStaff(index) {
+      console.log(index);
+      idb.deleteStaff(this.staff[index].id);
       this.staff.splice(index, 1);
       // this.refreshStaffLib();
     },
-    switchModal(info,index) {
-      if(index){
-        this.sIndex = index;
-        console.log(index);
-      }
-      if (info) {
-        this.staffInfo = info;
+    switchModal(index) {
+      // index  -1 新增，>-1 修改，undefined
+      // console.log(index);
+      this.sIndex = index;
+      if (this.sIndex > -1) {
+        this.staffInfo = Object.assign({}, this.staff[this.sIndex]);
       } else {
-        // console.log(this.staffInfo);
         this.staffInfo = Object.assign({}, this.$options.data().staffInfo);
       }
       this.modalSwitch = !this.modalSwitch;
@@ -98,7 +99,6 @@ export default {
         return dept;
         // dept.key == oldVal ? dept.active = false : '';
       });
-      // console.log(this.depts);
     }
   },
   components: {

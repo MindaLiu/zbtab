@@ -8,7 +8,7 @@
         @click="changeDept(dept.key)"
         v-for="dept in depts"
       >{{dept.title}}</button>
-      <button class="button is-pulled-right" @click="openStaffInfo(undefined,-1)">+</button>
+      <button class="button is-pulled-right" @click="openStaffInfo(-1)">+</button>
     </div>
     <div class="box">
       <table class="table is-striped is-hoverable is-fullwidth">
@@ -32,8 +32,8 @@
           <td>{{ s.bzz ? 'Y' : 'N' }}</td>
           <td>{{ s.props.join(' | ') }}</td>
           <td>
-            <button class="button is-dark" @click="openStaffInfo(s,index)">修改</button>
-            <button class="button is-dark" @click="deleteStaff(s.id,index)">删除</button>
+            <button class="button is-dark" @click="openStaffInfo(index)">修改</button>
+            <button class="button is-dark" @click="deleteStaff(index)">删除</button>
           </td>
         </tr>
       </tbody>
@@ -58,8 +58,9 @@ export default {
     changeDept(dept) {      
       this.$emit('refreshStaffLib', dept);
     },
-    openStaffInfo(info,index) {
-      this.$emit('openStaffInfo',info,index);
+    openStaffInfo(index) {
+      // console.log(index);
+      this.$emit('openStaffInfo',index);
     },
     deleteStaff(id,index){
       this.$emit('deleteStaff',id,index);
