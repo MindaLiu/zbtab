@@ -84,7 +84,7 @@ export default {
     async updateZbRecord(obj) {
         await zbTable.put(obj);
     },
-    //查询某部门的值班记录
+    //查询某部门值班当班人员
     async getZbRecordOf(key, value) {
         let objs = await zbTable.query(key, value)
         return objs;    //promise 对象

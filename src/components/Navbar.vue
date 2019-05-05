@@ -1,6 +1,6 @@
 <template>
   <section class="hero is-dark is-bold">
-    <div class="hero-body">
+    <div class="hero-body is-paddingless">
       <div class="container">
         <div class="level">
           <div class="level-left">

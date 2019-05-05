@@ -1,5 +1,5 @@
 <template>
-  <div class="container has-background-grey-dark">
+  <div class="lib container has-background-grey-dark">
     <div class="filter box">
       <button
         class="button is-rounded"
@@ -71,6 +71,9 @@ export default {
 </script>
 
 <style>
+.lib{
+  height: 1000px;
+}
 /* .staff {
   width: 148px;
   height: 240px;
