@@ -1,6 +1,7 @@
 <template>
   <div class="column is-narrow">
     <div class="infobox card">
+      <svgbadge class="svgButton" v-if="info.bzz" :state="info.isBzzToday" @switchState="changeBZZ"></svgbadge>
       <div class="card-image">
         <figure class="image is-3by4">
           <img :src="info.photoBitString" alt>
@@ -42,6 +43,7 @@
 </template>
 
 <script>
+import svgbadge from "./SvgBadge"
 export default {
   data: function() {
     return {
@@ -52,6 +54,14 @@ export default {
   },
   props: {
     info: Object
+  },
+  methods:{
+    changeBZZ: function() {
+      this.$emit('changeBZZ',this.info.id);
+    }
+  },
+  components: {
+    svgbadge
   }
 };
 </script>
@@ -62,5 +72,12 @@ export default {
 }
 .infobox{
   width: 200px;
+}
+.svgButton{
+  position: relative;
+  z-index: 1;
+  float: right;
+  top: -24px;
+  right: -24px;
 }
 </style>

@@ -3,19 +3,19 @@
     <navbar :page="page"></navbar>
     <div class="block columns is-multiline is-vcentered">
       <zbinfo :title="'技保部代班领导'" :gangWei="'jb'" @openStaffList="switchModal">
-        <infobox :info="content4Display.zd[0]"></infobox>
+        <infobox :info="content4Display.zd[0]" @changeBZZ="changeBZZ"></infobox>
       </zbinfo>
       <zbinfo :title="'大夜班'" :gangWei="'dyb'" @openStaffList="switchModal">
-        <infobox :info="content4Display.zd[0]"></infobox>
+        <infobox :info="content4Display.zd[0]" @changeBZZ="changeBZZ"></infobox>
       </zbinfo>
       <zbinfo :title="'导航设备室'" :gangWei="'dh'" @openStaffList="switchModal">
-        <infobox :info="content4Display.zd[0]"></infobox>
+        <infobox :info="content4Display.zd[0]" @changeBZZ="changeBZZ"></infobox>
       </zbinfo>
       <zbinfo :title="'动力设备室'" :gangWei="'dl'" @openStaffList="switchModal">
-        <infobox :info="content4Display.zd[0]"></infobox>
+        <infobox :info="content4Display.zd[0]" @changeBZZ="changeBZZ"></infobox>
       </zbinfo>
 
-      <div class="column">
+      <div class="column is-narrow">
         <div class="box content" style="width:300px">
           <h1 class="title">info</h1>
         </div>
@@ -50,6 +50,7 @@ import zbinfo from "../components/ZbInfo";
 import infobox from "../components/InfoBox";
 import modal from "../components/Modal";
 import stafflist from "../components/StaffList";
+import svgbadge from "../components/SvgBadge"
 
 export default {
   data: function() {
@@ -91,6 +92,9 @@ export default {
     },
     switchModal(gangWei) {
 
+    },
+    changeBZZ() {
+      this.test = !this.test;
     }
   },
   components: {
@@ -98,7 +102,8 @@ export default {
     zbinfo,
     modal,
     stafflist,
-    infobox
+    infobox,
+    svgbadge
   }
 };
 </script>
@@ -108,5 +113,4 @@ export default {
   height: 800px;
   padding: 10px;
 };
-
 </style>
