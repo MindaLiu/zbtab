@@ -14,17 +14,17 @@
           </span>
           <span class="title is-6">{{info.name}}</span>
         </p>
-        <p>
+        <!-- <p>
           <span class="icon is-small">
             <i class="fas fa-phone"></i>
           </span>
-          <span>{{info.name}}</span>
-        </p>
+          <span>{{info.phone}}</span>
+        </p>-->
         <p>
           <span class="icon is-small">
             <i class="fas fa-mobile"></i>
           </span>
-          <span> {{info.name}}</span>
+          <span>{{info.telephone}}</span>
         </p>
       </div>
       <footer class="card-footer">
@@ -43,7 +43,7 @@
 </template>
 
 <script>
-import svgbadge from "./SvgBadge"
+import svgbadge from "./SvgBadge";
 export default {
   data: function() {
     return {
@@ -53,11 +53,25 @@ export default {
     };
   },
   props: {
-    info: Object
+    info: {
+      type: Object,
+      default: function() {
+        return {
+          id: "",
+          photoBitString: "assets/480x640.png",
+          name: "",
+          // phone: '',
+          telephone: "",
+          props: [],
+          bzz: false,
+          isBzzToday: false
+        };
+      }
+    }
   },
-  methods:{
+  methods: {
     changeBZZ: function() {
-      this.$emit('changeBZZ',this.info.id);
+      this.$emit("changeBZZ", this.info.id);
     }
   },
   components: {
@@ -70,10 +84,10 @@ export default {
 .card-content {
   padding: 0 20px 0 20px;
 }
-.infobox{
+.infobox {
   width: 200px;
 }
-.svgButton{
+.svgButton {
   position: relative;
   z-index: 1;
   float: right;

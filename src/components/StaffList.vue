@@ -1,4 +1,22 @@
-<template></template>
+<template>
+  <div class="box">
+    <div class="columns is-multiline">
+      <div class="column is-narrow" :key="s.id" v-for="s in staff">
+        <button
+          class="button"
+          :class="{'is-dark': selectedStaff.includes(s.id)}"
+          @click="select(s.id)"
+        >{{s.name}}</button>
+      </div>
+    </div>
+    <div class="columns">
+      <div class="column is-offset-10">
+        <button class="button is-info" @click="submit">确定</button>
+      </div>
+    </div>
+  </div>
+  
+</template>
 
 <script>
 export default {
@@ -8,13 +26,39 @@ export default {
     };
   },
   props: {
-    // title: String,
+    gangWei: String,
     staff: Array
-    // staffFrom: String
+  },
+  computed: {
+    maxNum() {
+      let num = 0;
+      switch (this.gangWei) {
+        case "dh":
+        case "dl":
+        case "dyb":
+        case "jb":
+        case "ld":
+        case "tw":
+          num = 1;
+          break;
+        case "zd":
+        case "sn":
+          num = 2;
+          break;
+        default:
+          num = 0;
+          break;
+      }
+      return num;
+    }
   },
   methods: {
+    select(id) {
+      let length = this.selectedStaff.push(id);
+      this.selectedStaff.splice(0, length - this.maxNum);
+    },
     submit() {
-      this.$emit("changeContent",this.selectedStaff);
+      this.$emit("changeContent", this.selectedStaff);
     }
   }
 };

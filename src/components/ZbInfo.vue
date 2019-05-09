@@ -3,7 +3,7 @@
     <article class="message is-dark">
       <div class="message-header">
         <p>{{title}}</p>
-        <button class="button">
+        <button class="button" @click="openStaffList">
           <span class="icon is-small">
             <i class="fas fa-user-cog"></i>
           </span>
@@ -25,8 +25,8 @@ export default {
     gangWei: String
   },
   methods: {
-    openStaffList(gangWei) {
-      this.$emit("openStaffList", gangWei);
+    openStaffList() {
+      this.$emit("openStaffList", this.gangWei);
     }
   }
 };

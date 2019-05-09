@@ -56,9 +56,14 @@ export default {
     async updateStaff(obj) {
         await staffTable.put(obj);
     },
+    //查询某一个员工信息
+    async getOneStaff(id) {
+        let objs = await staffTable.get(id);
+        return objs;    //promise 对象
+    },
     //查询某部门的所有员工，返回数组
     async getStaff(key, value) {
-        let objs = await staffTable.query(key, value)
+        let objs = await staffTable.query(key, value);
         return objs;    //promise 对象
     },
     // //查询值大夜班的所有员工，返回数组
@@ -68,9 +73,10 @@ export default {
     // },
     //查询某部门中可排班的员工，返回数组
     async getArrangableStaffOf(key, value) {
-        let queryStringArray = [{ key: 'arrangeable', value: true }];
-        let queryString = { key: key, value: value };
+        let queryStringArray = [{ key: 'arrangeable', value: true, compare: '=' }];
+        let queryString = { key: key, value: value, compare: '='};
         queryStringArray.push(queryString);
+        // console.log(queryStringArray);
         let objs = await staffTable.select(queryStringArray);
         return objs;    //promise 对象
     },
@@ -84,19 +90,24 @@ export default {
     async updateZbRecord(obj) {
         await zbTable.put(obj);
     },
+    //查询所有值班记录
+    async getAllZbRecord() {
+        let objs = await zbTable.all()
+        return objs;    //promise 对象
+    },
     //查询某部门值班当班人员
     async getZbRecordOf(key, value) {
-        let objs = await zbTable.query(key, value)
+        let objs = await zbTable.query(key, value);
         return objs;    //promise 对象
     },
     //查询班组长
     async getBZZ() {
-        let obj = await zbTable.find('isBZZ', true)
+        let obj = await zbTable.find('isBZZ', true);
         return obj;    //promise 对象
     },
     //查询值大夜班的人员
     async getStaffOnDYB() {
-        let obj = await zbTable.find('onDYB', true)
+        let obj = await zbTable.find('onDYB', true);
         return obj;    //promise 对象
     },
 }
