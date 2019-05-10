@@ -8,7 +8,7 @@
         @click="changeDept(dept.key)"
         v-for="dept in depts"
       >{{dept.title}}</button>
-      <button class="button is-pulled-right" @click="openStaffInfo(-1)">+</button>
+      <button class="button is-pulled-right is-dark is-rounded" @click="openStaffInfo(-1)"><i class="fas fa-user-plus"></i></button>
     </div>
     <div class="box">
       <table class="table is-striped is-hoverable is-fullwidth">
@@ -28,12 +28,26 @@
           <td>{{ index + 1 }}</td>
           <td>{{ s.name }}</td>
           <td>{{ s.telephone }}</td>
-          <td>{{ s.inDYB ? 'Y' : 'N' }}</td>
-          <td>{{ s.bzz ? 'Y' : 'N' }}</td>
-          <td>{{ s.props.join(' | ') }}</td>
           <td>
-            <button class="button is-dark" @click="openStaffInfo(index)">修改</button>
-            <button class="button is-dark" @click="deleteStaff(index)">删除</button>
+            <i class="fas fa-check" v-if="s.inDYB"></i>
+            <i class="fas fa-times" v-else></i>
+          </td>
+          <td>
+            <i class="fas fa-check" v-if="s.bzz"></i>
+            <i class="fas fa-times" v-else></i>
+          </td>
+          <td>
+            <!-- {{ s.props.join(' | ') }} -->
+            <!-- <i class="fas fa-car" v-show="s.props.includes('nc')" title="内场司机"></i> 
+            <i class="fas fa-car-side" v-show="s.props.includes('wc')" title="外场司机"></i> 
+            <i class="fas fa-ribbon" v-show="s.props.includes('dy')" title="党员"></i> -->
+            <span v-if="s.props.includes('nc')">【内场司机】</span>
+            <span v-if="s.props.includes('wc')">【外场司机】</span>
+            <span v-if="s.props.includes('dy')">【党员】 </span>
+          </td>
+          <td>
+            <button class="button is-dark is-rounded" @click="openStaffInfo(index)">修改</button> 
+            <button class="button is-dark is-rounded" @click="deleteStaff(index)">删除</button>
           </td>
         </tr>
       </tbody>
@@ -73,6 +87,12 @@ export default {
 <style>
 .lib{
   height: 1000px;
+}
+.table th{
+  text-align: center;
+}
+.table td{
+  text-align: center;
 }
 /* .staff {
   width: 148px;

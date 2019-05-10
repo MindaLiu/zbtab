@@ -28,13 +28,13 @@
         </p>
       </div>
       <footer class="card-footer">
-        <span class="card-footer-item icon" :class="{'has-text-info': wc}" title="外场车司机">
+        <span class="card-footer-item icon" :class="{'has-text-info': info.props.includes('nc')}" title="外场车司机">
           <i class="fas fa-car"></i>
         </span>
-        <span class="card-footer-item icon" :class="{'has-text-info': nc}" title="内场车司机">
+        <span class="card-footer-item icon" :class="{'has-text-info': info.props.includes('wc')}" title="内场车司机">
           <i class="fas fa-car-side"></i>
         </span>
-        <span class="card-footer-item icon" :class="{'has-text-info': dy}" title="共产党员">
+        <span class="card-footer-item icon" :class="{'has-text-info': info.props.includes('dy')}" title="共产党员">
           <i class="fas fa-ribbon"></i>
         </span>
       </footer>
@@ -47,10 +47,10 @@ import svgbadge from "./SvgBadge";
 export default {
   data: function() {
     return {
-      wc: this.info.props.indexOf("wc") != -1 ? true : false,
-      nc: this.info.props.indexOf("nc") != -1 ? true : false,
-      dy: this.info.props.indexOf("dy") != -1 ? true : false
-    };
+      wc: this.info.props.includes('nc'),
+      nc: this.info.props.includes('wc'),
+      dy: this.info.props.includes('dy')
+    }
   },
   props: {
     info: {

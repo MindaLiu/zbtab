@@ -57,17 +57,25 @@ export default {
       p.then(value => (this.staff = value));
     },
     updateStaff(staffInfo) {
-      // this.refreshStaffLib();
-      // console.log(this.sIndex);
-      if (this.sIndex == -1 && staffInfo.depts == this.selectedDept) {
+      //1.当前（部门）表格新增,刷新视图
+      if (this.sIndex == -1 && staffInfo.department == this.selectedDept) {
         this.staff.push(staffInfo);
-      } else {
-        // this.staff[this.sIndex] = staffInfo;
-        //下标对数组负责时 vue不更新
+        console.log('sss');
+      }
+      //2.新增其他（部门）不用刷新视图
+      //3，编辑当前后仍在当前（部门）表格，更新
+      if(this.sIndex > -1 && staffInfo.department == this.selectedDept) {
+        //用下标对数组赋值 vue不更新
         this.$set(this.staff, this.sIndex, staffInfo);
       }
+      if(this.sIndex > -1 && staffInfo.department != this.selectedDept) {
+        //用下标对数组赋值 vue不更新
+        this.staff.splice(this.sIndex,1);
+      }
+      //
+      //更新数据库
       idb.updateStaff(staffInfo);
-      this.switchModal();
+      this.switchModal(-1);
     },
     deleteStaff(index) {
       console.log(index);

@@ -79,11 +79,13 @@ export default {
     };
   },
   created: function() {
-    idb.getAllZbRecord().then(value => (this.content = value || []));
+    idb.getAllZbRecord().then(value => (this.content = value || [])).then(v => (console.log(this.content4Display)));
     // console.log(this.content);
+    
   },
   computed: {
     content4Display: function() {
+      console.log('content4Dis done!');
       let content4Display = {};
       this.content.forEach(element => {
         let recordInfo = {
@@ -93,8 +95,8 @@ export default {
         idb
           .getOneStaff(element.staffID)
           // .then(v => (console.log(v)));
-          .then(value => (staffInfo = value || {}))
-          .then(v => {
+          .then(value => {
+            staffInfo = value || {}; 
             let info = Object.assign({}, staffInfo, recordInfo);
             // console.log(staffInfo);
             content4Display[element.gangWei] = content4Display[element.gangWei] || [];
@@ -102,7 +104,7 @@ export default {
             
           });
       });
-      console.log(content4Display);
+      // console.log(content4Display);
       return content4Display;
     },
     curDept: function() {
@@ -145,11 +147,14 @@ export default {
           array[index].staffID = staffID;
           array[index].isBzzToday = false;
         }
+        // console.log(element.gangWei + this.curGangWei);
         return element.gangWei == this.curGangWei;
       });
+      // console.log(record2beChanged);
       //更新数据库
       if (record2beChanged.lenth > 0) {
         // 修改记录
+        console.log(element);
         record2beChanged.forEach(element => idb.updateZbRecord(element));
       } else {
         // 新增记录
