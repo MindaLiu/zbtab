@@ -35,18 +35,36 @@
       </div>
 
       <zbinfo :title="'终端设备室'" :gangWei="'zd'" @openStaffList="switchModal">
-        <infobox :info="content4Display.zd ? content4Display.zd[0] : undefined" @changeBZZ="changeBZZ"></infobox>
-        <infobox :info="content4Display.zd ? content4Display.zd[1] : undefined" @changeBZZ="changeBZZ"></infobox>
+        <infobox
+          :info="content4Display.zd ? content4Display.zd[0] : undefined"
+          @changeBZZ="changeBZZ"
+        ></infobox>
+        <infobox
+          :info="content4Display.zd ? content4Display.zd[1] : undefined"
+          @changeBZZ="changeBZZ"
+        ></infobox>
       </zbinfo>
       <zbinfo :title="'塔台值班'" :gangWei="'tw'" @openStaffList="switchModal">
-        <infobox :info="content4Display.tw ? content4Display.tw[0] : undefined" @changeBZZ="changeBZZ"></infobox>
+        <infobox
+          :info="content4Display.tw ? content4Display.tw[0] : undefined"
+          @changeBZZ="changeBZZ"
+        ></infobox>
       </zbinfo>
       <zbinfo :title="'雷达设备室'" :gangWei="'ld'" @openStaffList="switchModal">
-        <infobox :info="content4Display.ld ? content4Display.jb[0] : undefined" @changeBZZ="changeBZZ"></infobox>
+        <infobox
+          :info="content4Display.ld ? content4Display.ld[0] : undefined"
+          @changeBZZ="changeBZZ"
+        ></infobox>
       </zbinfo>
       <zbinfo :title="'枢纽设备室'" :gangWei="'sn'" @openStaffList="switchModal">
-        <infobox :info="content4Display.sn ? content4Display.sn[0] : undefined" @changeBZZ="changeBZZ"></infobox>
-        <infobox :info="content4Display.sn ? content4Display.sn[1] : undefined" @changeBZZ="changeBZZ"></infobox>
+        <infobox
+          :info="content4Display.sn ? content4Display.sn[0] : undefined"
+          @changeBZZ="changeBZZ"
+        ></infobox>
+        <infobox
+          :info="content4Display.sn ? content4Display.sn[1] : undefined"
+          @changeBZZ="changeBZZ"
+        ></infobox>
       </zbinfo>
     </div>
     <modal :class="{'is-active': modalSwitch}" @close="switchModal">
@@ -74,39 +92,67 @@ export default {
       },
       modalSwitch: false,
       content: [],
-      content4Display: {},
+      content4Display: {
+        jb: [],
+        dyb: [],
+        dl: [],
+        dh: [],
+        zd: [],
+        ld: [],
+        tw: [],
+        sn: []
+      },
       curGangWei: "", //当前选择岗位
       staff: []
     };
   },
-  beforeCreate : function() {
+  beforeCreate: function() {
     idb.getAllZbRecord().then(value => (this.content = value || []));
-    // console.log(this.content);
-    
   },
   computed: {
-  //   content4Display: function() {
-  //     let content4Display = {};
-  //     this.content.forEach(element => {
-  //       let recordInfo = {
-  //         isBzzToday: element.isBzzToday
-  //       };
-  //       let staffInfo = {};
-  //       idb
-  //         .getOneStaff(element.staffID)
-  //         // .then(v => (console.log(v)));
-  //         .then(value => {
-  //           staffInfo = value || {}; 
-  //           let info = Object.assign({}, staffInfo, recordInfo);
-  //           // console.log(staffInfo);
-  //           content4Display[element.gangWei] = content4Display[element.gangWei] || [];
-  //           content4Display[element.gangWei].push(info);
-            
-  //         });
-  //     });
-  //     // console.log(content4Display);
-  //     return content4Display;
-  //   },
+    //   content4Display: function() {
+    //     let content4Display = {};
+    //     this.content.forEach(element => {
+    //       let recordInfo = {
+    //         isBzzToday: element.isBzzToday
+    //       };
+    //       let staffInfo = {};
+    //       idb
+    //         .getOneStaff(element.staffID)
+    //         // .then(v => (console.log(v)));
+    //         .then(value => {
+    //           staffInfo = value || {};
+    //           let info = Object.assign({}, staffInfo, recordInfo);
+    //           // console.log(staffInfo);
+    //           content4Display[element.gangWei] = content4Display[element.gangWei] || [];
+    //           content4Display[element.gangWei].push(info);
+
+    //         });
+    //     });
+    //     // console.log(content4Display);
+    //     return content4Display;
+    //   },
+    maxNum() {
+      let maxNum = 0;
+      switch (this.curGangWei) {
+        case "dh":
+        case "dl":
+        case "dyb":
+        case "jb":
+        case "ld":
+        case "tw":
+          maxNum = 1;
+          break;
+        case "zd":
+        case "sn":
+          maxNum = 2;
+          break;
+        default:
+          maxNum = 0;
+          break;
+      }
+      return maxNum;
+    },
     curDept: function() {
       return this.curGangWei == "tw" ? "zd" : this.curGangWei;
     },
@@ -136,51 +182,74 @@ export default {
       //需要删除 base64图片属性，防止内存占用过大
       // this.staff = temp;
     },
+    // content() {
+    //   this.content.forEach(e => {
+    //     let recordInfo = {
+    //       isBzzToday: e.isBzzToday
+    //     };
+    //     let staffInfo = {};
+    //     idb.getOneStaff(e.staffID).then(value => {
+    //       staffInfo = value || {};
+    //       let info = Object.assign({}, staffInfo, recordInfo);
+    //       // console.log(staffInfo);
+
+    //       this.content4Display[e.gangWei].push(info);
+    //     });
+    //   });
+    // }
     content() {
       this.content.forEach(e => {
+        
         let recordInfo = {
           isBzzToday: e.isBzzToday
         };
         let staffInfo = {};
-        idb
-          .getOneStaff(e.staffID)
-          .then(value => {
-            staffInfo = value || {}; 
-            let info = Object.assign({}, staffInfo, recordInfo);
-            // console.log(staffInfo);
-            this.content4Display[e.gangWei] = this.content4Display[e.gangWei] || [];
-            this.content4Display[e.gangWei].push(info);
-            
-          });
+        idb.getOneStaff(e.staffID).then(value => {
+          this.curGangWei = e.gangWei;
+          staffInfo = value || {};
+          let info = Object.assign({}, staffInfo, recordInfo);
+          let length = this.content4Display[e.gangWei].push(info);
+          if (this.maxNum !== 0) {
+            this.content4Display[e.gangWei].splice(0, length - this.maxNum);
+          }
+        }).then(x => this.curGangWei = '');
       });
+      // this.curGangWei = '';
     }
   },
   methods: {
     changeContent(selectedStaff) {
-      let record2beChanged = this.content.filter((element, index, array) => {
-        //刷新 content
-        if (element.gangWei == this.curGangWei) {
-          let staffID = selectedStaff.shift();   //改变 selectedStaff
-          // let staffID = selectedStaff.slice(index, index + 1)[0]; // 不改变 selectedStaff
-          array[index].staffID = staffID;
-          array[index].isBzzToday = false;
-        }
-        // console.log(element.gangWei + this.curGangWei);
-        return element.gangWei == this.curGangWei;
+      if (selectedStaff.length == 0) {
+        return;
+      }
+      let record2beChanged = this.content.filter(e => {
+        return e.gangWei == this.curGangWei;
       });
-      // console.log(record2beChanged);
-      //更新数据库
+
       if (record2beChanged.length > 0) {
-        // 修改记录
-        record2beChanged.forEach(element => idb.updateZbRecord(element));
+        //刷新 content
+        this.content.forEach((e, index, array) => {
+          if (e.gangWei == this.curGangWei) {
+            let staffID = selectedStaff.shift();
+            let s = array[index];
+            s.staffID = staffID;
+            s.isBzzToday = false;
+            array.splice(index, 1, s);
+          }
+        });
+        //数据库修改记录
+        record2beChanged.forEach(e => idb.updateZbRecord(e));
       } else {
-        // 新增记录
         selectedStaff.forEach(e => {
-          idb.updateZbRecord({
+          let newRecord = {
             staffID: e,
             gangWei: this.curGangWei,
             isBzzToday: false
-          });
+          };
+          // 添加 content
+          this.content.push(newRecord);
+          //数据库新增记录
+          idb.updateZbRecord(newRecord);
         });
       }
       this.switchModal();
@@ -193,7 +262,9 @@ export default {
       let oldBzzToday = this.bzzToday;
       let record2beChanged = this.content.filter((element, index, array) => {
         //刷新content
-        array[index].isBzzToday = element.staffID == staffID ? true : false;
+        let s = array[index];
+        s.isBzzToday = element.staffID == staffID ? true : false;
+        array.splice(index, 1, s);
         return element.staffID == staffID || element.staffID == oldBzzToday;
       });
       // 更新数据库

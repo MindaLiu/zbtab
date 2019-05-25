@@ -31,7 +31,7 @@ export default {
   },
   computed: {
     maxNum() {
-      let num = 0;
+      let maxNum = 0;
       switch (this.gangWei) {
         case "dh":
         case "dl":
@@ -39,17 +39,17 @@ export default {
         case "jb":
         case "ld":
         case "tw":
-          num = 1;
+          maxNum = 1;
           break;
         case "zd":
         case "sn":
-          num = 2;
+          maxNum = 2;
           break;
         default:
-          num = 0;
+          maxNum = 0;
           break;
       }
-      return num;
+      return maxNum;
     }
   },
   methods: {
