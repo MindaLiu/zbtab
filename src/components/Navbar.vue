@@ -13,7 +13,7 @@
               <h1 class="title">技术保障部</h1>
             </div>
             <div class="level-item">
-              <span class="tag is-info">{{page.title}}</span>
+              <span class="tag is-info is-medium">{{page.title}}</span>
             </div>
           </div>
           <div class="level-right">

@@ -40,7 +40,7 @@ export default {
         fillingColor () {
             let state = this.state;
             return {
-                background: !state ? '#4F5D73' : '#4F5D73',
+                background: !state ? '#CCCCCC' : '#4F5D73',
                 shadow: !state ? '#F5CF87' : '#231F20',
                 header: !state ? '#7F7F7F' : '#E0995E',
                 footer: !state ? '#999999' : '#F5CF87'

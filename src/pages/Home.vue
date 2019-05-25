@@ -28,9 +28,13 @@
       </zbinfo>
 
       <div class="column is-narrow">
-        <div class="box content" style="width:300px">
-          <h1 class="title">info</h1>
-          <p class="title"></p>
+        <div class="box content has-background-white-ter" style="width:360px">
+          <!-- <h1 class="title">info</h1> -->
+          <!-- <flip-clock :options="{}" /> -->
+          <timedisplay class="title is-2"></timedisplay>
+
+          <span class="title is-4">卫生值班：</span>
+          <input class="input title is-5" type="text">
         </div>
       </div>
 
@@ -81,6 +85,9 @@ import zbinfo from "../components/ZbInfo";
 import infobox from "../components/InfoBox";
 import modal from "../components/Modal";
 import stafflist from "../components/StaffList";
+
+import timedisplay from "../components/TimeDisplay";
+// import { FlipClock } from "@mvpleung/flipclock";
 
 export default {
   data: function() {
@@ -199,20 +206,22 @@ export default {
     // }
     content() {
       this.content.forEach(e => {
-        
         let recordInfo = {
           isBzzToday: e.isBzzToday
         };
         let staffInfo = {};
-        idb.getOneStaff(e.staffID).then(value => {
-          this.curGangWei = e.gangWei;
-          staffInfo = value || {};
-          let info = Object.assign({}, staffInfo, recordInfo);
-          let length = this.content4Display[e.gangWei].push(info);
-          if (this.maxNum !== 0) {
-            this.content4Display[e.gangWei].splice(0, length - this.maxNum);
-          }
-        }).then(x => this.curGangWei = '');
+        idb
+          .getOneStaff(e.staffID)
+          .then(value => {
+            this.curGangWei = e.gangWei;
+            staffInfo = value || {};
+            let info = Object.assign({}, staffInfo, recordInfo);
+            let length = this.content4Display[e.gangWei].push(info);
+            if (this.maxNum !== 0) {
+              this.content4Display[e.gangWei].splice(0, length - this.maxNum);
+            }
+          })
+          .then(x => (this.curGangWei = ""));
       });
       // this.curGangWei = '';
     }
@@ -248,7 +257,7 @@ export default {
           };
           //数据库新增记录
           idb.updateZbRecord(newRecord).then(x => this.refreshContent());
-          // 添加 content         
+          // 添加 content
         });
       }
       this.switchModal();
@@ -269,7 +278,7 @@ export default {
       // 更新数据库
       record2beChanged.forEach(element => idb.updateZbRecord(element));
     },
-    refreshContent(){
+    refreshContent() {
       idb.getAllZbRecord().then(value => (this.content = value || []));
     }
   },
@@ -278,7 +287,9 @@ export default {
     zbinfo,
     modal,
     stafflist,
-    infobox
+    infobox,
+    // FlipClock,
+    timedisplay
   }
 };
 </script>

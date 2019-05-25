@@ -60,7 +60,6 @@ export default {
       //1.当前（部门）表格新增,刷新视图
       if (this.sIndex == -1 && staffInfo.department == this.selectedDept) {
         this.staff.push(staffInfo);
-        console.log('sss');
       }
       //2.新增其他（部门）不用刷新视图
       //3，编辑当前后仍在当前（部门）表格，更新
@@ -78,7 +77,6 @@ export default {
       this.switchModal(-1);
     },
     deleteStaff(index) {
-      console.log(index);
       idb.deleteStaff(this.staff[index].id);
       this.staff.splice(index, 1);
       // this.refreshStaffLib();
