@@ -54,16 +54,22 @@ export default {
     /************** 人员表操作 ******************/
     //增加/更新一个员工
     async updateStaff(obj) {
+        //indexedDB 不支持bool 类型索引
+        obj.inDYB = obj.inDYB ? 1 : 0;
         await staffTable.put(obj);
     },
     //查询某一个员工信息
     async getOneStaff(id) {
-        let objs = await staffTable.get(id);
-        return objs;    //promise 对象
+        let obj = await staffTable.get(id);
+        obj.inDYB = obj.inDYB ? 1 : 0;
+        return obj;    //promise 对象
     },
     //查询某部门的所有员工，返回数组
     async getStaff(key, value) {
         let objs = await staffTable.query(key, value);
+        objs.forEach(e => {
+            e.inDYB = e.inDYB ? 1 : 0;
+        });
         return objs;    //promise 对象
     },
     // //查询值大夜班的所有员工，返回数组

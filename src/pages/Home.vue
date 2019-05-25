@@ -102,7 +102,7 @@ export default {
         tw: [],
         sn: []
       },
-      curGangWei: "", //当前选择岗位
+      curGangWei: '', //当前选择岗位
       staff: []
     };
   },
@@ -171,7 +171,7 @@ export default {
       let p = {};
       let temp = [];
       if (this.curDept == "dyb") {
-        p = idb.getStaff("dyb", true);
+        p = idb.getStaff("dyb", 1);
       } else {
         // p = idb.getArrangableStaffOf("department", this.curDept);
         p = idb.getStaff("inDept", this.curDept);
@@ -179,6 +179,10 @@ export default {
         // p.then(value => (this.staff = value || []));
       }
       p.then(value => (this.staff = value || []));
+      //清空
+      // if(!this.curGangWei){
+      //   this.staff = [];
+      // }
       //需要删除 base64图片属性，防止内存占用过大
       // this.staff = temp;
     },
@@ -255,7 +259,7 @@ export default {
       this.switchModal();
     },
     switchModal(gangWei) {
-      this.curGangWei = gangWei || "";
+      this.curGangWei = gangWei || '';
       this.modalSwitch = !this.modalSwitch;
     },
     changeBZZ(staffID) {
