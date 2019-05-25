@@ -29,6 +29,13 @@ export default {
     gangWei: String,
     staff: Array
   },
+  watch: {
+    staff(){
+      if(this.staff){
+        this.selectedStaff = [];
+      }
+    }
+  },
   computed: {
     maxNum() {
       let maxNum = 0;

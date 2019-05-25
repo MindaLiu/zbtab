@@ -9,10 +9,10 @@
       </div>
       <div class="card-content">
         <p>
-          <span class="icon is-small">
+          <span class="icon">
             <i class="fas fa-user"></i>
           </span>
-          <span class="title is-6">{{info.name}}</span>
+          <span class="title is-4" style="padding-left:25px;">{{info.name}}</span>
         </p>
         <!-- <p>
           <span class="icon is-small">
@@ -21,20 +21,20 @@
           <span>{{info.phone}}</span>
         </p>-->
         <p>
-          <span class="icon is-small">
+          <span class="icon">
             <i class="fas fa-mobile"></i>
           </span>
-          <span>{{info.telephone}}</span>
+          <span class="title is-5 infoText">{{info.telephone}}</span>
         </p>
       </div>
       <footer class="card-footer">
-        <span class="card-footer-item icon" :class="{'has-text-info': info.props.includes('nc')}" title="外场车司机">
+        <span class="card-footer-item icon " :class="{'has-text-grey-lighter': !this.info.props.includes('wc') }" title="外场车司机">
           <i class="fas fa-car"></i>
         </span>
-        <span class="card-footer-item icon" :class="{'has-text-info': info.props.includes('wc')}" title="内场车司机">
+        <span class="card-footer-item icon " :class="{'has-text-grey-lighter': !this.info.props.includes('nc')}" title="内场车司机">
           <i class="fas fa-car-side"></i>
         </span>
-        <span class="card-footer-item icon" :class="{'has-text-info': info.props.includes('dy')}" title="共产党员">
+        <span class="card-footer-item icon " :class="{'has-text-grey-lighter': !this.info.props.includes('dy')}" title="共产党员">
           <i class="fas fa-ribbon"></i>
         </span>
       </footer>
@@ -45,13 +45,13 @@
 <script>
 import svgbadge from "./SvgBadge";
 export default {
-  data: function() {
-    return {
-      wc: this.info.props.includes('nc'),
-      nc: this.info.props.includes('wc'),
-      dy: this.info.props.includes('dy')
-    }
-  },
+  // data: function() {
+  //   return {
+  //     wc: this.info.props.includes('nc'),
+  //     nc: this.info.props.includes('wc'),
+  //     dy: this.info.props.includes('dy')
+  //   }
+  // },
   props: {
     info: {
       type: Object,

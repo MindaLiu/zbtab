@@ -99,7 +99,7 @@
           <img :src="localStaffInfo.photoBitString">
         </figure>
         <div class="file">
-          <label class="file-label">
+          <label class="file-label is-inline-block" style="padding-left: 5px;padding-top: 5px;">
             <input class="file-input" type="file" accept="image/*" @change="preview">
             <span class="file-cta">
               <span class="file-icon">

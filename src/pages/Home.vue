@@ -106,8 +106,8 @@ export default {
       staff: []
     };
   },
-  beforeCreate: function() {
-    idb.getAllZbRecord().then(value => (this.content = value || []));
+  created: function() {
+    this.refreshContent();
   },
   computed: {
     //   content4Display: function() {
@@ -171,7 +171,7 @@ export default {
       let p = {};
       let temp = [];
       if (this.curDept == "dyb") {
-        p = idb.getStaff("dyb", true);
+        p = idb.getStaff("dyb", 1);
       } else {
         // p = idb.getArrangableStaffOf("department", this.curDept);
         p = idb.getStaff("inDept", this.curDept);
@@ -246,10 +246,9 @@ export default {
             gangWei: this.curGangWei,
             isBzzToday: false
           };
-          // 添加 content
-          this.content.push(newRecord);
           //数据库新增记录
-          idb.updateZbRecord(newRecord);
+          idb.updateZbRecord(newRecord).then(x => this.refreshContent());
+          // 添加 content         
         });
       }
       this.switchModal();
@@ -269,6 +268,9 @@ export default {
       });
       // 更新数据库
       record2beChanged.forEach(element => idb.updateZbRecord(element));
+    },
+    refreshContent(){
+      idb.getAllZbRecord().then(value => (this.content = value || []));
     }
   },
   components: {

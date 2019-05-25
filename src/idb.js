@@ -8,18 +8,18 @@ const inDYBIndex = {
     name: 'dyb',
     keyPath: 'inDYB'
 };
-const onDYBIndex = {
-    name: 'ondyb',
-    keyPath: 'onDYB'
-};
+// const onDYBIndex = {
+//     name: 'ondyb',
+//     keyPath: 'onDYB'
+// };
 const arrangeableIndex = {
     name: 'arrangeable',
     keyPath: 'arrangeable'
 };
-const bzzIndex = {
-    name: 'isBZZ',
-    keyPath: 'isBZZ'
-};
+// const bzzIndex = {
+//     name: 'isBZZ',
+//     keyPath: 'isBZZ'
+// };
 
 const idb = new HelloIndexedDB({
     name: 'zbdb',
@@ -40,9 +40,9 @@ const idb = new HelloIndexedDB({
             keyPath: 'id',
             autoIncrement: true,
             indexes: [
-                departmentIndex,
-                onDYBIndex,
-                bzzIndex
+                // departmentIndex,
+                // onDYBIndex,
+                // bzzIndex
             ]
         }
     ]
@@ -54,16 +54,21 @@ export default {
     /************** 人员表操作 ******************/
     //增加/更新一个员工
     async updateStaff(obj) {
+        obj.inDYB = obj.inDYB ? 1 : 0;
         await staffTable.put(obj);
     },
     //查询某一个员工信息
     async getOneStaff(id) {
-        let objs = await staffTable.get(id);
-        return objs;    //promise 对象
+        let obj = await staffTable.get(id);
+        obj.inDYB = obj.inDYB ? true : false;
+        return obj;    //promise 对象
     },
     //查询某部门的所有员工，返回数组
     async getStaff(key, value) {
         let objs = await staffTable.query(key, value);
+        objs.forEach(e => {
+            e.inDYB = e.inDYB ? true : false;
+        });
         return objs;    //promise 对象
     },
     // //查询值大夜班的所有员工，返回数组
