@@ -65,7 +65,12 @@ export default {
       this.selectedStaff.splice(0, length - this.maxNum);
     },
     submit() {
-      this.$emit("changeContent", this.selectedStaff);
+      if(this.selectedStaff.length == this.maxNum){
+        this.$emit("changeContent", this.selectedStaff);
+      }
+      else{
+        alert("请选择正确数量的值班员！");
+      }
     }
   }
 };

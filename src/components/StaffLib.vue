@@ -29,12 +29,14 @@
           <td>{{ s.name }}</td>
           <td>{{ s.telephone }}</td>
           <td>
-            <i class="fas fa-check" v-if="s.inDYB"></i>
-            <i class="fas fa-times" v-else></i>
+            <!-- <i class="fas fa-check" v-if="s.inDYB"></i>
+            <i class="fas fa-times" v-else></i> -->
+            <span>{{s.inDYB ? '是' : '否'}}</span>
           </td>
           <td>
-            <i class="fas fa-check" v-if="s.bzz"></i>
-            <i class="fas fa-times" v-else></i>
+            <!-- <i class="fas fa-check" v-if="s.bzz"></i>
+            <i class="fas fa-times" v-else></i> -->
+            <span>{{s.bzz ? '是' : '否'}}</span>
           </td>
           <td>
             <!-- {{ s.props.join(' | ') }} -->

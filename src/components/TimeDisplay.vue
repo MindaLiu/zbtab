@@ -26,7 +26,7 @@ export default {
       var date = new Date();
       var year = date.getFullYear();
       var month = padDate(date.getMonth() + 1);
-      var day = padDate(date.getHours());
+      var day = padDate(date.getDate());
       var hours = padDate(date.getHours());
       var minutes = padDate(date.getMinutes());
       var seconds = padDate(date.getSeconds());

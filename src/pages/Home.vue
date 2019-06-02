@@ -34,7 +34,7 @@
           <timedisplay class="title is-2"></timedisplay>
 
           <span class="title is-4">卫生值班：</span>
-          <input class="input title is-5" type="text">
+          <input class="input title is-5" type="text" style="text-align:center;">
         </div>
       </div>
 
@@ -213,8 +213,9 @@ export default {
         idb
           .getOneStaff(e.staffID)
           .then(value => {
+            if(!value) return;
             this.curGangWei = e.gangWei;
-            staffInfo = value || {};
+            staffInfo = value;
             let info = Object.assign({}, staffInfo, recordInfo);
             let length = this.content4Display[e.gangWei].push(info);
             if (this.maxNum !== 0) {

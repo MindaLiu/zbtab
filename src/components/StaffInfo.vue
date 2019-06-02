@@ -21,14 +21,14 @@
           </div>
         </div>
         <div class="columns">
-          <div class="column is-3">
+          <!-- <div class="column is-3">
             <label class="label is-pulled-right">值班电话：</label>
           </div>
           <div class="column is-3">
             <div class="control">
               <input class="input" type="text" v-model="localStaffInfo.phone">
             </div>
-          </div>
+          </div>-->
           <div class="column is-2">
             <label class="label is-pulled-right">部门：</label>
           </div>
@@ -36,7 +36,7 @@
             <div class="control">
               <div class="select">
                 <select v-model="localStaffInfo.department">
-                  <option disabled value="">请选择</option>
+                  <option disabled value>请选择</option>
                   <option value="jb">部领导</option>
                   <option value="zd">终端室</option>
                   <option value="sn">枢纽室</option>
@@ -50,7 +50,7 @@
         </div>
         <div class="columns">
           <div class="column is-5">
-            <label class="label is-pulled-right">是否班组长：</label>
+            <label class="label is-pulled-right">班组长资格：</label>
           </div>
           <div class="column is-1">
             <div class="control">
@@ -125,34 +125,48 @@
 export default {
   computed: {
     localStaffInfo() {
-     return this.staffInfo;
+      return this.staffInfo;
     }
   },
-  props:['staffInfo'],
+  props: ["staffInfo"],
   // props: {
   //   staffInfo: Object,
   // },
   methods: {
-    fileCheck() {},
+    formCheck() {
+      if (!this.localStaffInfo.name || !this.localStaffInfo.telephone) {
+        alert("请填写姓名和手机！");
+        return false;
+      }
+      if (!this.localStaffInfo.department) {
+        alert("请选择人员所属部门！");
+        return false;
+      }
+      return true;
+    },
     preview(event) {
       let file = event.target.files[0];
-      if(!file)return;
-      if(file.size/1024 > 100){
-        alert('请上传小于100k的图片');
+      if (!file) return;
+      if (file.size / 1024 > 100) {
+        alert("请上传小于100k的图片");
         return;
-      } 
+      }
       let reader = new FileReader();
-      reader.onerror =() => alert('图片加载失败请重新上传');
-      reader.onload = (event) => {
+      reader.onerror = () => alert("图片加载失败请重新上传");
+      reader.onload = event => {
         //data:image/*;base64
-        let base64str = btoa(event.target.result); 
-        this.localStaffInfo.photoBitString = 'data:' + file.type + ';base64,' + base64str;
+        let base64str = btoa(event.target.result);
+        this.localStaffInfo.photoBitString =
+          "data:" + file.type + ";base64," + base64str;
       };
       reader.readAsBinaryString(file);
     },
     submit() {
-      this.$emit("submit", this.localStaffInfo);
-      // console.log(this.localStaffInfo);
+      if (this.formCheck()) {
+        this.localStaffInfo.name = this.localStaffInfo.name.slice(0,4);
+        this.localStaffInfo.telephone = this.localStaffInfo.telephone.slice(0,11);
+        this.$emit("submit", this.localStaffInfo);
+      }
     }
   },
   components: {}

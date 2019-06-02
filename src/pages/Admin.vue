@@ -77,9 +77,14 @@ export default {
       this.switchModal(-1);
     },
     deleteStaff(index) {
-      idb.deleteStaff(this.staff[index].id);
+      var staffID = this.staff[index].id;
+      idb.deleteStaff(staffID);
       this.staff.splice(index, 1);
       // this.refreshStaffLib();
+      //删除人员相关的值班记录
+      // idb.getZbRecordOf('staffID',staffID).then(val => val.forEach(e => {
+      //   idb.deleteZbRecord(e.id);
+      // }));
     },
     switchModal(index) {
       // index  -1 新增，>-1 修改，undefined

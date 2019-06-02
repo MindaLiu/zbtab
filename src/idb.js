@@ -8,14 +8,14 @@ const inDYBIndex = {
     name: 'dyb',
     keyPath: 'inDYB'
 };
-// const onDYBIndex = {
-//     name: 'ondyb',
-//     keyPath: 'onDYB'
-// };
-const arrangeableIndex = {
-    name: 'arrangeable',
-    keyPath: 'arrangeable'
+const staffIDIndex = {
+    name: 'staffID',
+    keyPath: 'staffID'
 };
+// const arrangeableIndex = {
+//     name: 'arrangeable',
+//     keyPath: 'arrangeable'
+// };
 // const bzzIndex = {
 //     name: 'isBZZ',
 //     keyPath: 'isBZZ'
@@ -32,7 +32,7 @@ const idb = new HelloIndexedDB({
             indexes: [
                 departmentIndex,
                 inDYBIndex,
-                arrangeableIndex
+                // arrangeableIndex
             ]
         },
         {
@@ -41,7 +41,7 @@ const idb = new HelloIndexedDB({
             autoIncrement: true,
             indexes: [
                 // departmentIndex,
-                // onDYBIndex,
+                staffIDIndex,
                 // bzzIndex
             ]
         }
@@ -60,7 +60,9 @@ export default {
     //查询某一个员工信息
     async getOneStaff(id) {
         let obj = await staffTable.get(id);
-        obj.inDYB = obj.inDYB ? true : false;
+        if(obj) {
+            obj.inDYB = obj.inDYB ? true : false;
+        }
         return obj;    //promise 对象
     },
     //查询某部门的所有员工，返回数组
@@ -105,14 +107,18 @@ export default {
         let objs = await zbTable.query(key, value);
         return objs;    //promise 对象
     },
-    //查询班组长
-    async getBZZ() {
-        let obj = await zbTable.find('isBZZ', true);
-        return obj;    //promise 对象
+    //删除值班记录
+    async deleteZbRecord(key) {
+        await zbTable.delete(key);
     },
+    // //查询班组长
+    // async getBZZ() {
+    //     let obj = await zbTable.find('isBZZ', true);
+    //     return obj;    //promise 对象
+    // },
     //查询值大夜班的人员
-    async getStaffOnDYB() {
-        let obj = await zbTable.find('onDYB', true);
-        return obj;    //promise 对象
-    },
+    // async getStaffOnDYB() {
+    //     let obj = await zbTable.find('onDYB', true);
+    //     return obj;    //promise 对象
+    // },
 }
