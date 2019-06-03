@@ -44,6 +44,8 @@
 
 <script>
 import svgbadge from "./SvgBadge";
+import defaultPhoto from "../assets/480x640.png"
+import { defaultCoreCipherList } from 'constants';
 export default {
   // data: function() {
   //   return {
@@ -58,10 +60,10 @@ export default {
       default: function() {
         return {
           id: "",
-          photoBitString: "assets/480x640.png",
-          name: "",
+          photoBitString: defaultPhoto,
+          name: "Name",
           // phone: '',
-          telephone: "",
+          telephone: "Mobile Phone",
           props: [],
           bzz: false,
           isBzzToday: false

@@ -17,11 +17,7 @@
             </div>
           </div>
           <div class="level-right">
-              <a :href="page.goto">
-                  <span class="icon is-large">
-                      <i :class="page.button"></i>
-                  </span>
-              </a>
+            <v-link :href="page.goto" :icon="page.button"></v-link>
           </div>
         </div>
       </div>
@@ -30,8 +26,11 @@
 </template>
 
 <script>
+import VLink from "./VLink";
+
 export default {
-    props: ['page']
+  props: ["page"],
+  components: {VLink}
 };
 </script>
 
