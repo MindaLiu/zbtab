@@ -1,5 +1,7 @@
 <template>
-  <a :href="href">
+  <a :href="href"
+     @click="go"
+  >
     <!-- <span class="icon is-large" :class="{'has-text-info' : isActive}"> -->
     <span class="icon is-large">
       <i :class="icon"></i>
